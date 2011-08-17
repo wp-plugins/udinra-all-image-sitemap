@@ -5,19 +5,17 @@ Requires at least: 2.9.2
 Tested up to: 3.2.1
 Stable tag: 1.0
 
-This plugin will help you generate Image Sitemaps (XML) for your WordPress blog from all images excluding the images from other
-
-sources other than your website.
+This plugin will help you generate Image Sitemaps (XML) for your WordPress blog from all images.
 
 == Description ==
 
-The plugin generates a XML Image Sitemap from the images used in your post excluding 
+The plugin generates a XML Image Sitemap from the images used in your post excluding the images of advertising networks.It will create image sitemap from 
 
-the images of advertising networks.It will create image sitemap from the images uploaded using Wordpress upload
+the images uploaded using Wordpress upload and from the images used in the post or pages but not uploaded using Wordpress upload.The images should be on 
 
-or from the images used in the post or pages but not uploaded using Wordpress upload.The images should be on your server
+your server thus the sitemap contains only your images.The images from advertising networks,affiliate programs are not part of sitemap.
 
-thus the sitemap only contains your images.The sitemap contains all the important tags like
+The sitemap contains all the important tags like
 
 1.image location  (available in both versions downloadable from wordpress and Udinra)
 2.image caption   (available only in free version downloadable from http://udinra.com/blog/udinra-image-sitemap)
@@ -27,28 +25,7 @@ Thus increasing the chances of your image ranking high in search engine results.
 
 of the image while using in post or pages the plugin uses your alt text for title else title mentioned by you is used.
 
-Udinra is using this plugin to generate image sitemap.Below is screenshot of the 
-
-sitemap.
-
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated-by = Udinra Image Sitemap (http://udinra.com) -->
-<!-- Generated-on="August 13, 2011, 3:55 pm" -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-<url>
- <loc>http://udinra.com/blog/durga-puja-pandal-mg-road-gangtok-sikkim</loc>
- <image:image>
-  <image:loc>http://udinra.com/image/Durga-puja-pandal-in-MG-Road-Gangtok-Sikkim-1.jpg</image:loc>
-  <image:caption>Durga puja pandal in MG Road Gangtok Sikkim 1</image:caption>
-  <image:title>Symbol of innovation and technology in indian puja pandal creation</image:title>
- </image:image>
- <image:image>
-  <image:loc>http://udinra.com/image/Durga-puja-pandal-in-MG-Road-Gangtok-Sikkim-2.jpg</image:loc>
-  <image:caption>Durga puja pandal in MG Road Gangtok Sikkim 2</image:caption>
-  <image:title>Durga puja pandal in MG Road Gangtok Sikkim 1</image:title>
- </image:image>
-</url>
-
+Udinra is using this plugin to generate image sitemap.To see the sitemap use http://udinra.com/sitemap-image.xml
 
 For updates, you can follow the [author] at (http://udinra.com/blog/udinra-image-sitemap).All information about
 the plugin will be updated on Wordpress as well as the link shared above.If you find any bugs then report it
@@ -80,20 +57,5 @@ You can find the sitemap-image.xml file in your blog's root folder.
 Please create sitemap-image.xml in your Wordpress installation root directory and set the permissions to 666.
 
 == Screenshots ==
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated-by = Udinra Image Sitemap (http://udinra.com) -->
-<!-- Generated-on="August 13, 2011, 3:55 pm" -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-<url>
- <loc>http://udinra.com/blog/durga-puja-pandal-mg-road-gangtok-sikkim</loc>
- <image:image>
-  <image:loc>http://udinra.com/image/Durga-puja-pandal-in-MG-Road-Gangtok-Sikkim-1.jpg</image:loc>
-  <image:caption>Durga puja pandal in MG Road Gangtok Sikkim 1</image:caption>
-  <image:title>Symbol of innovation and technology in indian puja pandal creation</image:title>
- </image:image>
- <image:image>
-  <image:loc>http://udinra.com/image/Durga-puja-pandal-in-MG-Road-Gangtok-Sikkim-2.jpg</image:loc>
-  <image:caption>Durga puja pandal in MG Road Gangtok Sikkim 2</image:caption>
-  <image:title>Durga puja pandal in MG Road Gangtok Sikkim 1</image:title>
- </image:image>
-</url>
+
+http://udinra.com/sitemap-image.xml
