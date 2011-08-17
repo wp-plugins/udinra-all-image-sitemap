@@ -9,27 +9,21 @@ This plugin will help you generate Image Sitemaps (XML) for your WordPress blog 
 
 == Description ==
 
-The plugin generates a XML Image Sitemap from the images used in your post excluding the images of advertising networks.It will create image sitemap from 
-
-the images uploaded using Wordpress upload and from the images used in the post or pages but not uploaded using Wordpress upload.The images should be on 
-
-your server thus the sitemap contains only your images.The images from advertising networks,affiliate programs are not part of sitemap.
+The plugin generates a XML Image Sitemap from the images used in your post excluding the images of advertising networks.It will create image sitemap from the images uploaded using Wordpress upload and from the images used in the post or pages but not uploaded using Wordpress upload.The images should be on your server thus the sitemap contains only your images.The images from advertising networks,affiliate programs are not part of sitemap.
 
 The sitemap contains all the important tags like
 
 1.image location  (available in both versions downloadable from wordpress and Udinra)
+
 2.image caption   (available only in free version downloadable from http://udinra.com/blog/udinra-image-sitemap)
+
 3.image title     (available only in free version downloadable from http://udinra.com/blog/udinra-image-sitemap)
 
-Thus increasing the chances of your image ranking high in search engine results.If you have not mentioned title
-
-of the image while using in post or pages the plugin uses your alt text for title else title mentioned by you is used.
+Thus increasing the chances of your image ranking high in search engine results.If you have not mentioned title of the image while using in post or pages the plugin uses your alt text for title else title mentioned by you is used.
 
 Udinra is using this plugin to generate image sitemap.To see the sitemap use http://udinra.com/sitemap-image.xml
 
-For updates, you can follow the [author] at (http://udinra.com/blog/udinra-image-sitemap).All information about
-the plugin will be updated on Wordpress as well as the link shared above.If you find any bugs then report it
-either on wordpress or on the link shared above.
+For updates, you can follow the [author] at (http://udinra.com/blog/udinra-image-sitemap).All information about the plugin will be updated on Wordpress as well as the link shared above.If you find any bugs then report it either on wordpress or on the link shared above.
 
 == Installation ==
 
