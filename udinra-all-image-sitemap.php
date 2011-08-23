@@ -1,18 +1,20 @@
 <?php
 /*
-Plugin Name: Udinra All Image Sitemap 
+Plugin Name: Udinra Image Sitemap 
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: The plugin generates a XML Image Sitemap from all the images in the post except the Advertisement images.
 Author: Udinra
-Version: 1.0
+Version: 1.1
 Author URI: http://udinra.com/
 */
 
-add_action ('admin_menu', 'image_sitemap_generate_page');
+add_action ('admin_menu', 'udinra_all_image_sitemap');
+add_action ('publish_post','udinra_image_sitemap_loop');
+add_action ('publish_page','udinra_image_sitemap_loop');
 
-function image_sitemap_generate_page () {
+function udinra_all_image_sitemap () {
 	if (function_exists ('add_submenu_page'))
-    	add_submenu_page ('tools.php', __('Udinra All Image Sitemap'), __('Udinra All Image Sitemap'),
+    	add_submenu_page ('tools.php', __('Udinra Image Sitemap'), __('Udinra Image Sitemap'),
         	'manage_options', 'image-sitemap-generate-page', 'image_sitemap_generate');
 }
 
@@ -37,9 +39,9 @@ function image_sitemap_generate_page () {
 function image_sitemap_generate () {
 
 	if ($_POST ['submit']) {
-		$st = image_sitemap_loop ();
+		$st = udinra_image_sitemap_loop ();
 		if (!$st) {
-echo '<br /><div class="error"><h2>Oops!</h2><p>The XML sitemap was generated successfully but the  plugin was unable to save the xml to your WordPress root folder at <strong>' . $_SERVER["DOCUMENT_ROOT"] . '</strong>.</p><p>Please create a blank file sitemap-image.xml with write permissions 666 in the root directory of your wordpress installation';
+echo '<br /><div class="error"><h2>Oops!</h2><p>The XML sitemap was generated successfully but the  plugin was unable to save the xml to your WordPress root folder at <strong>' . $_SERVER["DOCUMENT_ROOT"] . '</strong>.</p><p>Please create a blank file sitemap-image.xml with write permissions 666 in the root directory of your wordpress installation or Ping Google';
 exit();
 }
 
@@ -98,13 +100,13 @@ exit();
 <?php	}
 }
 
-function image_sitemap_loop () {
+function udinra_image_sitemap_loop () {
 	global $wpdb;
 
 	$posts = $wpdb->get_results ("SELECT id, post_content FROM $wpdb->posts 
 							WHERE post_status = 'publish' 
 							AND (post_type = 'post' OR post_type = 'page')
-							ORDER BY post_date");
+							ORDER BY post_date DESC");
 
 	if (empty ($posts)) {
 		return false;
@@ -144,10 +146,11 @@ function image_sitemap_loop () {
 					while($k < $i) {
 					 $temp_cmp = $loc[$k];
 					 if(strpos($temp_cmp,$tempurl)){
+					 $loc1_temp = str_replace(" ","-",$loc1[$k]);
   					 $xml .= " <image:image>\n";
 					 $xml .= "  <image:loc>$loc[$k]</image:loc>\n";
-			/*		 $xml .= "  <image:caption>$loc1[$k]</image:caption>\n";
-					 $xml .= "  <image:title>$loc2[$k]</image:title>\n"; */
+				//	 $xml .= "  <image:caption>$loc1_temp</image:caption>\n";
+				//	 $xml .= "  <image:title>$loc2[$k]</image:title>\n";
 					 $xml .= " </image:image>\n";}
 					 $k = $k + 1;		}			
 					$xml .= "</url>\n";}
