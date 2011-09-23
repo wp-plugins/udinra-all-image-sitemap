@@ -4,7 +4,7 @@ Plugin Name: Udinra Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: The plugin generates a XML Image Sitemap from all the images in the post except the Advertisement images.
 Author: Udinra
-Version: 1.0
+Version: 1.2
 Author URI: http://udinra.com/
 */
 
