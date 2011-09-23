@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Udinra Image Sitemap 
+Plugin Name: Udinra All Image Sitemap 
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: The plugin generates a XML Image Sitemap from all the images in the post except the Advertisement images.
 Author: Udinra
@@ -14,7 +14,7 @@ add_action ('publish_page','udinra_image_sitemap_loop');
 
 function udinra_all_image_sitemap () {
 	if (function_exists ('add_submenu_page'))
-    	add_submenu_page ('tools.php', __('Udinra Image Sitemap'), __('Udinra Image Sitemap'),
+    	add_submenu_page ('tools.php', __('Udinra All Image Sitemap'), __('Udinra All Image Sitemap'),
         	'manage_options', 'image-sitemap-generate-page', 'image_sitemap_generate');
 }
 
