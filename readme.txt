@@ -3,13 +3,19 @@ Contributors: Udinra
 Tags: xml sitemaps, google sitemaps, image sitemap, seo, search engines , wordpress image sitemap
 Requires at least: 2.9.2
 Tested up to: 3.2.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Automatically generate Image Sitemaps (XML) from all images after adding new images in post/page.
 
 == Description ==
 
 The plugin generates a XML Image Sitemap from the images used in your post excluding the images of advertising networks.The sitemap contains only your images.The images from advertising networks,affiliate programs are not part of sitemap.
+
+New Feature in 1.2
+
+1.Sub domain support.
+
+2.User requested features (available only in free version downloadable from http://udinra.com/blog/udinra-image-sitemap)
 
 New Feature in 1.1
 
@@ -62,9 +68,14 @@ http://udinra.com/sitemap-image.xml
 
 == Changelog ==
 
+Version 1.2 on September 23rd 2011
+
 Version 1.1 on August 23rd 2011
+
 Version 1.0 on August 17th 2011
 
 == Upgrade Notice ==
+
+Version 1.2 on September 23rd 2011
 
 Version 1.1 on August 23rd 2011

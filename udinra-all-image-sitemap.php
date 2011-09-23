@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Udinra All Image Sitemap 
+Plugin Name: Udinra Image Sitemap 
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: The plugin generates a XML Image Sitemap from all the images in the post except the Advertisement images.
 Author: Udinra
-Version: 1.1
+Version: 1.0
 Author URI: http://udinra.com/
 */
 
@@ -117,7 +117,19 @@ function udinra_image_sitemap_loop () {
 		$xml  .= '<!-- Generated-on="' . date("F j, Y, g:i a") .'" -->' . "\n";		     
 		$xml  .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 		$tempurl = get_bloginfo('url');
-		$tempurl = substr($tempurl,8);
+		$temp_pos1 = strpos($tempurl,'//');
+		$temp_pos2 = strpos($tempurl,'.');
+		$temp_pos3 = strrpos($tempurl,'.');
+		if ($temp_pos2 == $temp_pos3) {
+			$temp_pos1 = $temp_pos1 + 2;
+			$temp_pos2 = $temp_pos2 - $temp_pos1 - 1;
+			$tempurl = substr($tempurl,$temp_pos1,$temp_pos2);
+		}
+		else {
+			$temp_pos2 = $temp_pos2 + 1;
+			$temp_pos3 = $temp_pos3 - $temp_pos2 - 1;
+			$tempurl = substr($tempurl,$temp_pos2,$temp_pos3);	
+		}
 		
 		foreach ($posts as $post) { 
 			if (preg_match_all ("/src=[\'\"](http:\/\/.[^\'\"]+\.(?:jpe?g|png|gif))[\'\"]/ui", 
@@ -149,8 +161,8 @@ function udinra_image_sitemap_loop () {
 					 $loc1_temp = str_replace(" ","-",$loc1[$k]);
   					 $xml .= " <image:image>\n";
 					 $xml .= "  <image:loc>$loc[$k]</image:loc>\n";
-				//	 $xml .= "  <image:caption>$loc1_temp</image:caption>\n";
-				//	 $xml .= "  <image:title>$loc2[$k]</image:title>\n";
+					 $xml .= "  <image:caption>$loc1_temp</image:caption>\n";
+					 $xml .= "  <image:title>$loc2[$k]</image:title>\n";
 					 $xml .= " </image:image>\n";}
 					 $k = $k + 1;		}			
 					$xml .= "</url>\n";}
