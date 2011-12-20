@@ -3,8 +3,8 @@
 Plugin Name: Udinra All Image Sitemap 
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing.
-Author: Udinra
-Version: 1.4
+Author: <a href="http://udinra.com">Udinra</a>
+Version: 1.5
 Author URI: http://udinra.com/
 */
 
@@ -45,7 +45,7 @@ exit();
 <p>The XML Sitemap was generated successfully. Please open the <a target="_blank" href="<?php echo $sitemapurl; ?>">Sitemap file</a> in your favorite web browser to confirm that there are no errors.</p>
 <p>Google and Ping are informed about the changes.They are pinged automatically.</p>
 <h3>Suggestions?</h3>
-<p>Please email your suggestions to Udinra at pitaji@udinra.com.</p>
+<p>Please email your suggestions to Udinra at http://udinra.com/contact-me </p>
 <p>Are You Making Money With Your Images then Donate Us a small share.</p>
 <p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
@@ -73,7 +73,7 @@ exit();
   </form>
   <p>You can click the button above to generate a Image Sitemap for your website and ping Google and Bing. </p>
   <h3>Suggestions?</h3>
-  <p>Please email your suggestions to Udinra at pitaji@udinra.com.</p>
+  <p>Please email your suggestions to Udinra at http://udinra.com/contact-me .</p>
   <p>If the plugin helped you in your business then please make a small donation (any amount you wish).</p>
 <p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
