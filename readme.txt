@@ -3,7 +3,7 @@ Contributors: Udinra
 Tags: xml sitemaps, google sitemaps, image sitemap, seo, search engines , google image sitemap
 Requires at least: 2.9.2
 Tested up to: 3.3
-Stable tag: 1.5
+Stable tag: 1.6
 
 Automatically generates Image Sitemaps (XML) from your images and pings Google and Bing.Only Image sitemap plugin with this feature.
 
