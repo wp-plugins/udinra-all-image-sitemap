@@ -2,50 +2,50 @@
 /*
 Plugin Name: Udinra All Image Sitemap 
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
-Description: Automatically generates Google Image Sitemap and submits it to Google,Bing.
-Author: <a href="http://udinra.com">Udinra</a>
-Version: 1.6
-Author URI: http://udinra.com/
+Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
+Author: Udinra
+Version: 1.7
+Author URI: http://udinra.com
 */
 
-add_action ('admin_menu', 'udinra_all_image_sitemap');
-add_action ('publish_post','udinra_image_sitemap_loop');
-add_action ('publish_page','udinra_image_sitemap_loop');
-
-function udinra_all_image_sitemap () {
-	if (function_exists ('add_submenu_page'))
-    	add_submenu_page ('tools.php', __('Udinra All Image Sitemap'), __('Udinra All Image Sitemap'),
-        	'manage_options', 'image-sitemap-generate-page', 'image_sitemap_generate');
+function UdinraAA_IMS() {
+if(!isset($_POST['udinra_ping_google'])){
+$_POST['udinra_ping_google'] = "";
 }
-
-	function IsImageSitemapWritable($filename) {
-		
-		if(!is_writable($filename)) {
-			//no we can't.
-			return false;
-		}
-		
-		return true;
-	}
-
-function image_sitemap_generate () {
-
-	if ($_POST ['submit']) {
-		$st = udinra_image_sitemap_loop ();
-		if (!$st) {
-echo '<br /><div class="error"><h2>Oops!</h2><p>The XML sitemap was generated successfully but the  plugin was unable to save the xml to your WordPress root folder at <strong>' . $_SERVER["DOCUMENT_ROOT"] . '</strong>.</p><p>Please create a blank file sitemap-image.xml with write permissions 666 in the root directory of your wordpress installation';
-exit();
+if(!isset($_POST['udinra_ping_bing'])){
+$_POST['udinra_ping_bing'] = "";
 }
-
+if(!isset($_POST['udinra_ping_ask'])){
+$_POST['udinra_ping_ask'] = "";
+}
+if($_POST['udinra_img_site']){
+update_option('udinra_ping_google',$_POST['udinra_ping_google']);
+update_option('udinra_ping_bing',$_POST['udinra_ping_bing']);
+update_option('udinra_ping_ask',$_POST['udinra_ping_ask']);
+}
+$wp_udinra_ping_google = get_option('udinra_ping_google');
+$wp_udinra_ping_bing  = get_option('udinra_ping_bing');
+$wp_udinra_ping_ask = get_option('udinra_ping_ask');
+$udinra_sitemap_response = "";
+if(isset($_POST['udinra_img_site'])){
+$udinra_sitemap_response = udinra_image_sitemap_loop(); 
+}
 ?>
-
 <div class="wrap">
-<h2>Udinra All Image Sitemap</h2>
-<?php $sitemapurl = get_bloginfo('url') . "/sitemap-image.xml"; ?>
-<p>The XML Sitemap was generated successfully. Please open the <a target="_blank" href="<?php echo $sitemapurl; ?>">Sitemap file</a> in your favorite web browser to confirm that there are no errors.</p>
-<p>Google and Ping are informed about the changes.They are pinged automatically.</p>
+<h2>Udinra All Image Sitemap (Configuration)</h2>
+<form method="post" id="UdinraAA_IMS">
+<fieldset class="options">
+<p><input type="checkbox" id="udinra_ping_google" name="udinra_ping_google" value="udinra_ping_google" <?php if($wp_udinra_ping_google == true) { echo('checked="checked"'); } ?> />Ping Google (Recommended)</p>
+<p><input type="checkbox" id="udinra_ping_bing" name="udinra_ping_bing" value="udinra_ping_bing" <?php if($wp_udinra_ping_bing == true) { echo('checked="checked"'); } ?> />Ping Bing (Recommended)</p>
+<p><input type="checkbox" id="udinra_ping_ask" name="udinra_ping_ask" value="udinra_ping_ask" <?php if($wp_udinra_ping_ask == true) { echo('checked="checked"'); } ?> />Ping Ask.com (Recommended)</p>
+<p><em>If you have a minute, please <a href="http://wordpress.org/extend/plugins/udinra-all-image-sitemap/" target="_blank">rate this plugin</a> on WordPress.org... thanks!</em></p>
+<p><input type="submit" name="udinra_img_site" value="Create Sitemap" /></p>
+<p><?php echo "Status:"."<br><br>".$udinra_sitemap_response; ?></p>
+</fieldset>
+</form>
+<p>If you face any problem then create blank sitemap-image.xml file in your Wordpress root directory and make it writable</p>
 <h3>Suggestions?</h3>
-<p>Please email your suggestions to Udinra at http://udinra.com/contact-me </p>
+<p>Please email your suggestions to <a href="http://udinra.com/contact-me">Udinra</a></p>
 <p>Are You Making Money With Your Images then Donate Us a small share.</p>
 <p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
@@ -60,138 +60,117 @@ exit();
  <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
 </form>
 </p>
-<?php } else { ?>
-<div class="wrap">
-  <h2>Udinra Image Sitemap</h2>
-  <p>Creating image sitemap will allow search engines find your images and increases traffic.</p>
-  <h4>Create blank file sitemap-image.xml in the root directory of your Wordpress installation.</h4>
-  <h3>Create Image Sitemap</h3>
-  <form id="options_form" method="post" action="">
-    <div class="submit">
-      <input type="submit" name="submit" id="sb_submit" value="Generate Image Sitemap" />
-    </div>
-  </form>
-  <p>You can click the button above to generate a Image Sitemap for your website and ping Google and Bing. </p>
-  <h3>Suggestions?</h3>
-  <p>Please email your suggestions to Udinra at http://udinra.com/contact-me .</p>
-  <p>If the plugin helped you in your business then please make a small donation (any amount you wish).</p>
-<p>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
- <input type="hidden" name="business" value="pitaji@udinra.com">  
- <input type="hidden" name="cmd" value="_donations">  
- <input type="hidden" name="item_name" value="udinra">  
- <input type="hidden" name="item_number" value="Udinra Image Sitemap plugin">  
- <input type="hidden" name="currency_code" value="USD">  
- <input type="image" name="submit" border="0" 
-        src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif"  
-        alt="PayPal - The safer, easier way to pay online">  
- <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
-</form>
-</p>
 </div>
-<?php	}
+<?php
+
 }
 
-function udinra_image_sitemap_loop () {
-	global $wpdb;
+function udinra_image_sitemap_loop() {
 
-	$posts = $wpdb->get_results ("SELECT id, post_content FROM $wpdb->posts 
-							WHERE post_status = 'publish' 
-							AND (post_type = 'post' OR post_type = 'page')
-							ORDER BY post_date DESC");
+$wp_udinra_ping_google = get_option('udinra_ping_google');
+$wp_udinra_ping_bing  = get_option('udinra_ping_bing');
+$wp_udinra_ping_ask = get_option('udinra_ping_ask');
 
-	if (empty ($posts)) {
-		return false;
+global $wpdb;
 
-	} else {
-		$xml   = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-		$xml  .= '<!-- Generated-by Udinra Image Sitemap (http://udinra.com) -->' . "\n";
-		$xml  .= '<!-- Generated-on="' . date("F j, Y, g:i a") .'" -->' . "\n";		     
-		$xml  .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
-		$tempurl = get_bloginfo('url');
-		$temp_pos1 = strpos($tempurl,'//');
-		$temp_pos2 = strpos($tempurl,'.');
-		$temp_pos3 = strrpos($tempurl,'.');
-		if ($temp_pos2 == $temp_pos3) {
-			$temp_pos1 = $temp_pos1 + 2;
-			$temp_pos2 = $temp_pos2 - $temp_pos1 - 1;
-			$tempurl = substr($tempurl,$temp_pos1,$temp_pos2);
+$udinra_posts = $wpdb->get_results("SELECT post_title,post_excerpt,post_parent,guid	FROM $wpdb->posts
+				 			WHERE post_type = 'attachment'
+							AND post_mime_type like 'image%'
+							AND post_parent > 0
+							ORDER BY post_date desc");
+
+if (empty ($udinra_posts)) {
+	return false;
+
+} else {
+	$udinra_xml   = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+	$udinra_xml  .= '<!-- Generated-by Udinra Image Sitemap (http://udinra.com) -->' . "\n";
+	$udinra_xml  .= '<!-- Generated-on="' . date("F j, Y, g:i a") .'" -->' . "\n";		     
+	$udinra_xml  .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+	
+	$udinra_cur_post_id= 0;
+	$udinra_prev_post_id= 0;		
+	$udinra_first_time = 0;
+
+	foreach ($udinra_posts as $udinra_post) { 
+		$udinra_cur_post_id= $udinra_post->post_parent;
+		if($udinra_cur_post_id != $udinra_prev_post_id) {
+  			$udinra_post_url = get_permalink($udinra_cur_post_id);
+			if($udinra_first_time == 1) {
+				$udinra_xml .= "\t"."</url>"."\n"; 
+				$udinra_first_time = 0;
+			}
+			$udinra_xml .= "\t"."<url>"."\n";
+			$udinra_xml .= "\t\t"."<loc>".$udinra_post_url."</loc>"."\n";
+			$udinra_xml .= "\t\t"."<image:image>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:caption>".$udinra_post->post_excerpt."</image:caption>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:title>".$udinra_post->post_title."</image:title>"."\n";
+			$udinra_xml .= "\t\t"."</image:image>"."\n";
+			$udinra_first_time = 1;
+			$udinra_prev_post_id = $udinra_cur_post_id;
 		}
 		else {
-			$temp_pos2 = $temp_pos2 + 1;
-			$temp_pos3 = $temp_pos3 - $temp_pos2 - 1;
-			$tempurl = substr($tempurl,$temp_pos2,$temp_pos3);	
+			$udinra_xml .= "\t\t"."<image:image>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:caption>".$udinra_post->post_excerpt."</image:caption>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:title>".$udinra_post->post_title."</image:title>"."\n";
+			$udinra_xml .= "\t\t"."</image:image>"."\n";
 		}
-		
-		foreach ($posts as $post) { 
-			if (preg_match_all ("/src=[\'\"](http:\/\/.[^\'\"]+\.(?:jpe?g|png|gif))[\'\"]/ui", 
-				$post->post_content, $matches, PREG_SET_ORDER)) {
-				$i = 1;$k=1;
-				$loc = array();
-				$loc1 = array();
-				$loc2 = array();
-				$permalink = get_permalink($post->id); 
-				$ret_code =	preg_match_all ("/alt=[\'\"](.*?)[\'\"]/ui", 
-				$post->post_content, $matches1, PREG_SET_ORDER);
-				$ret_code = preg_match_all ("/title=[\'\"](.*?)[\'\"]/ui", 
-				$post->post_content, $matches2, PREG_SET_ORDER);
-				$only_adv =1;
-					foreach ($matches as $match) {
-						$loc[$i] = $match[1]; 
-						$temp_cmp = $loc[$i];$i = $i + 1;
-						if(strpos($temp_cmp,$tempurl)){
-							$only_adv = 0;}
-						}
-						$i = 1;
-					foreach ($matches1 as $match1) {
-						$loc1[$i] = $match1[1]; $i = $i + 1;}
-						$i = 1;
-					foreach ($matches2 as $match2) {
-						if($match2[1] == ""){
-							$match2[1] = $loc1[$i];
-						}
-						$loc2[$i] = $match2[1]; $i = $i + 1;}
-					if ($only_adv == 0) {
-						$xml .= "<url>\n";
-						$xml .= " <loc>$permalink</loc>\n";
-					}
-					while($k < $i) {
-					 $temp_cmp = $loc[$k];
-					 if(strpos($temp_cmp,$tempurl)){
-					 $loc1_temp = str_replace(" ","-",$loc1[$k]);
-  					 $xml .= " <image:image>\n";
-					 $xml .= "  <image:loc>$loc[$k]</image:loc>\n";
-					 $xml .= "  <image:caption>$loc1_temp</image:caption>\n";
-					 $xml .= "  <image:title>$loc2[$k]</image:title>\n";
-					 $xml .= " </image:image>\n";
-					 }
-					 $k = $k + 1;		}
-					 if($only_adv == 0) {
-					 	$xml .= "</url>\n"; }			
-					}
-			}
-	
-		$xml .= "</urlset>";
-	}
+	} 
+	$udinra_xml .= "\t"."</url>"."\n";
+	$udinra_xml .= "</urlset>";
 
-	$image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml';
-	if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($image_sitemap_url)) {
-		if (file_put_contents ($image_sitemap_url, $xml)) {
-			$tempurl = get_bloginfo('url'). '/sitemap-image.xml';
-			$ping_url ='';
-			$ping_url = "http://www.google.com/webmasters/tools/ping?sitemap=" . urlencode($tempurl);
-			$response = wp_remote_get( $ping_url );
-			if($response['code']=200)
-			{ return true; }
-			else { return false;}
-			$ping_url ='';
-			$ping_url = "http://www.bing.com/webmaster/ping.aspx?sitemap=" . urlencode($tempurl);
-			$response = wp_remote_get( $ping_url );
-			if($response['code']=200)
-			{ return true; }
-			else { return false;}
+	$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml';
+
+	if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+		if (file_put_contents ($udinra_image_sitemap_url, $udinra_xml)) {
+			$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml';
+			$udinra_sitemap_response = "Sitemap created successfully"."<br>";
+			
+			if ($wp_udinra_ping_google == true) {
+				$udinra_ping_url ='';
+				$udinra_ping_url = "http://www.google.com/webmasters/tools/ping?sitemap=" . urlencode($udinra_tempurl);
+				$udinra_response = wp_remote_get( $udinra_ping_url );
+				if($udinra_response['code']=200)
+				{ $udinra_sitemap_response .= "Pinged Google Successfully"."<br>"; }
+				else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster.";}}
+			if ($wp_udinra_ping_bing == true) {
+				$udinra_ping_url ='';
+				$udinra_ping_url = "http://www.bing.com/webmaster/ping.aspx?sitemap=" . urlencode($udinra_tempurl);
+				$udinra_response = wp_remote_get( $udinra_ping_url );
+				if($udinra_response['code']=200)
+				{ $udinra_sitemap_response .= "Pinged Bing Successfully"."<br>"; }
+				else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster.";}}
+			if ($wp_udinra_ping_ask == true) {
+				$udinra_ping_url ='';
+				$udinra_ping_url = "http://submissions.ask.com/ping?sitemap=" . urlencode($udinra_tempurl);
+				$udinra_response = wp_remote_get( $udinra_ping_url );
+				if($udinra_response['code']=200)
+				{ $udinra_sitemap_response .= "Pinged Ask.com Successfully"."<br>"; }
+				else { $udinra_sitemap_response .= "Failed to ping Ask.com."; }}
 		}
 	}
+   }
+return $udinra_sitemap_response;
+}
 
- }
+function udinra_image_sitemap_admin() {
+	if (function_exists('add_options_page')) {
+	add_options_page('Udinra Image Sitemap', 'Udinra Image Sitemap', 'manage_options', basename(__FILE__), 'UdinraAA_IMS');
+	}
+}
+
+function IsImageSitemapWritable($udinra_filename) {
+	if(!is_writable($udinra_filename)) {
+		$udinra_sitemap_response = "The file sitemap-image.xml is not writable please check permission of the file for more details visit http://udinra.com/blog/udinra-image-sitemap";
+		return false;
+	}
+	return true;
+}
+
+add_action ('publish_post','udinra_image_sitemap_loop');
+add_action ('publish_page','udinra_image_sitemap_loop');
+add_action('admin_menu','udinra_image_sitemap_admin');
+
 ?>
