@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 1.7
+Version: 1.8
 Author URI: http://udinra.com
 */
 
@@ -104,8 +104,8 @@ if (empty ($udinra_posts)) {
 			$udinra_xml .= "\t\t"."<loc>".$udinra_post_url."</loc>"."\n";
 			$udinra_xml .= "\t\t"."<image:image>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".$udinra_post->post_excerpt."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".$udinra_post->post_title."</image:title>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
 			$udinra_xml .= "\t\t"."</image:image>"."\n";
 			$udinra_first_time = 1;
 			$udinra_prev_post_id = $udinra_cur_post_id;
@@ -113,8 +113,8 @@ if (empty ($udinra_posts)) {
 		else {
 			$udinra_xml .= "\t\t"."<image:image>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".$udinra_post->post_excerpt."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".$udinra_post->post_title."</image:title>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
 			$udinra_xml .= "\t\t"."</image:image>"."\n";
 		}
 	} 
