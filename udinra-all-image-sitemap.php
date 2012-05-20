@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 1.8
+Version: 1.9
 Author URI: http://udinra.com
 */
 
@@ -18,14 +18,19 @@ $_POST['udinra_ping_bing'] = "";
 if(!isset($_POST['udinra_ping_ask'])){
 $_POST['udinra_ping_ask'] = "";
 }
+if(!isset($_POST['udinra_gzip'])){
+$_POST['udinra_gzip'] = "";
+}
 if($_POST['udinra_img_site']){
 update_option('udinra_ping_google',$_POST['udinra_ping_google']);
 update_option('udinra_ping_bing',$_POST['udinra_ping_bing']);
 update_option('udinra_ping_ask',$_POST['udinra_ping_ask']);
+update_option('udinra_gzip',$_POST['udinra_gzip']);
 }
 $wp_udinra_ping_google = get_option('udinra_ping_google');
 $wp_udinra_ping_bing  = get_option('udinra_ping_bing');
 $wp_udinra_ping_ask = get_option('udinra_ping_ask');
+$wp_udinra_gzip = get_option('udinra_gzip');
 $udinra_sitemap_response = "";
 if(isset($_POST['udinra_img_site'])){
 $udinra_sitemap_response = udinra_image_sitemap_loop(); 
@@ -35,6 +40,7 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 <h2>Udinra All Image Sitemap (Configuration)</h2>
 <form method="post" id="UdinraAA_IMS">
 <fieldset class="options">
+<p><input type="checkbox" id="udinra_gzip" name="udinra_gzip" value="udinra_gzip" <?php if($wp_udinra_gzip == true) { echo('checked="checked"'); } ?> />Create gzip file sitemap-image.xml.gz</p>
 <p><input type="checkbox" id="udinra_ping_google" name="udinra_ping_google" value="udinra_ping_google" <?php if($wp_udinra_ping_google == true) { echo('checked="checked"'); } ?> />Ping Google (Recommended)</p>
 <p><input type="checkbox" id="udinra_ping_bing" name="udinra_ping_bing" value="udinra_ping_bing" <?php if($wp_udinra_ping_bing == true) { echo('checked="checked"'); } ?> />Ping Bing (Recommended)</p>
 <p><input type="checkbox" id="udinra_ping_ask" name="udinra_ping_ask" value="udinra_ping_ask" <?php if($wp_udinra_ping_ask == true) { echo('checked="checked"'); } ?> />Ping Ask.com (Recommended)</p>
@@ -44,8 +50,20 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 </fieldset>
 </form>
 <p>If you face any problem then create blank sitemap-image.xml file in your Wordpress root directory and make it writable</p>
-<h3>Suggestions?</h3>
-<p>Please email your suggestions to <a href="http://udinra.com/contact-me">Udinra</a></p>
+<h3>Join Me on</h3>
+<p>
+<a 
+href="https://plus.google.com/116123732887797372587?rel=author"  title="Esha on Google plus"><b>Google Plus</b></a><br />
+<a 
+href="http://www.facebook.com/eshaaupadhyay"  title="Esha on Facebook"><b>Facebook</b></a><br />
+<a 
+href="https://twitter.com/Udinra"  title="Esha on Twitter"><b>Twitter</b></a><br />
+<a 
+href="https://digg.com/udinra"  title="Esha on Digg"><b>Digg</b></a>
+<br  />
+<a 
+href="https://stumbleupon.com/stumbler/udinra"  title="Esha on StumbleUpon"><b>StumbleUpon</b></a>
+</p>
 <p>Are You Making Money With Your Images then Donate Us a small share.</p>
 <p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
@@ -60,6 +78,37 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
  <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
 </form>
 </p>
+<p>Recent Tweets</p>
+<p>
+<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 5,
+  interval: 30000,
+  width: 250,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: true,
+    loop: false,
+    live: true,
+    behavior: 'all'
+  }
+}).render().setUser('Udinra').start();
+</script>
+</p>
 </div>
 <?php
 
@@ -70,6 +119,7 @@ function udinra_image_sitemap_loop() {
 $wp_udinra_ping_google = get_option('udinra_ping_google');
 $wp_udinra_ping_bing  = get_option('udinra_ping_bing');
 $wp_udinra_ping_ask = get_option('udinra_ping_ask');
+$wp_udinra_gzip = get_option('udinra_gzip');
 
 global $wpdb;
 
@@ -121,37 +171,47 @@ if (empty ($udinra_posts)) {
 	$udinra_xml .= "\t"."</url>"."\n";
 	$udinra_xml .= "</urlset>";
 
-	$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml';
-
-	if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
-		if (file_put_contents ($udinra_image_sitemap_url, $udinra_xml)) {
-			$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml';
-			$udinra_sitemap_response = "Sitemap created successfully"."<br>";
-			
-			if ($wp_udinra_ping_google == true) {
-				$udinra_ping_url ='';
-				$udinra_ping_url = "http://www.google.com/webmasters/tools/ping?sitemap=" . urlencode($udinra_tempurl);
-				$udinra_response = wp_remote_get( $udinra_ping_url );
-				if($udinra_response['code']=200)
-				{ $udinra_sitemap_response .= "Pinged Google Successfully"."<br>"; }
-				else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster.";}}
-			if ($wp_udinra_ping_bing == true) {
-				$udinra_ping_url ='';
-				$udinra_ping_url = "http://www.bing.com/webmaster/ping.aspx?sitemap=" . urlencode($udinra_tempurl);
-				$udinra_response = wp_remote_get( $udinra_ping_url );
-				if($udinra_response['code']=200)
-				{ $udinra_sitemap_response .= "Pinged Bing Successfully"."<br>"; }
-				else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster.";}}
-			if ($wp_udinra_ping_ask == true) {
-				$udinra_ping_url ='';
-				$udinra_ping_url = "http://submissions.ask.com/ping?sitemap=" . urlencode($udinra_tempurl);
-				$udinra_response = wp_remote_get( $udinra_ping_url );
-				if($udinra_response['code']=200)
-				{ $udinra_sitemap_response .= "Pinged Ask.com Successfully"."<br>"; }
-				else { $udinra_sitemap_response .= "Failed to ping Ask.com."; }}
+	if ($wp_udinra_gzip == true) {
+		$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml.gz';
+		if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+		$gz = gzopen($udinra_image_sitemap_url,'w9');
+		gzwrite($gz, $udinra_xml);
+		gzclose($gz);
+		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml.gz';
+		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
 		}
 	}
-   }
+	$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml';
+	if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+	if (file_put_contents ($udinra_image_sitemap_url, $udinra_xml)) {
+		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml';
+		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
+		}
+	}
+			
+	if ($wp_udinra_ping_google == true) {
+		$udinra_ping_url ='';
+		$udinra_ping_url = "http://www.google.com/webmasters/tools/ping?sitemap=" . urlencode($udinra_tempurl);
+		$udinra_response = wp_remote_get( $udinra_ping_url );
+		if($udinra_response['code']=200)
+			{ $udinra_sitemap_response .= "Pinged Google Successfully"."<br>"; }
+			else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster.";}}
+	if ($wp_udinra_ping_bing == true) {
+		$udinra_ping_url ='';
+		$udinra_ping_url = "http://www.bing.com/webmaster/ping.aspx?sitemap=" . urlencode($udinra_tempurl);
+		$udinra_response = wp_remote_get( $udinra_ping_url );
+		if($udinra_response['code']=200)
+			{ $udinra_sitemap_response .= "Pinged Bing Successfully"."<br>"; }
+			else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster.";}}
+	if ($wp_udinra_ping_ask == true) {
+		$udinra_ping_url ='';
+		$udinra_ping_url = "http://submissions.ask.com/ping?sitemap=" . urlencode($udinra_tempurl);
+		$udinra_response = wp_remote_get( $udinra_ping_url );
+		if($udinra_response['code']=200)
+			{ $udinra_sitemap_response .= "Pinged Ask.com Successfully"."<br>"; }
+			else { $udinra_sitemap_response .= "Failed to ping Ask.com."; }}
+		}
+
 return $udinra_sitemap_response;
 }
 
