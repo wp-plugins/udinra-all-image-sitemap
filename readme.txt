@@ -4,7 +4,7 @@ Donate link: http://udinra.com/
 Tags: xml sitemaps, google sitemaps, image sitemap, seo, search engines, sitemap
 Requires at least: 2.0
 Tested up to: 3.3.2
-Stable tag: 1.9
+Stable tag: 2.0
 License: GPLv2 or later
 
 Automatically creates Google XML sitemap for images and pings Google,Bing and Ask.com
@@ -34,6 +34,10 @@ http://udinra.com/blog/udinra-image-sitemap
 http://udinra.com/blog/udinra-image-sitemap
 
 == Changelog ==
+
+= 2.0 =
+
+Pings gzipped version to search engines if gzipped version is created
 
 = 1.9 =
 
