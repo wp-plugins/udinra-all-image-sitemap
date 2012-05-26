@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 1.9
+Version: 2.0
 Author URI: http://udinra.com
 */
 
@@ -171,16 +171,6 @@ if (empty ($udinra_posts)) {
 	$udinra_xml .= "\t"."</url>"."\n";
 	$udinra_xml .= "</urlset>";
 
-	if ($wp_udinra_gzip == true) {
-		$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml.gz';
-		if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
-		$gz = gzopen($udinra_image_sitemap_url,'w9');
-		gzwrite($gz, $udinra_xml);
-		gzclose($gz);
-		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml.gz';
-		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
-		}
-	}
 	$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml';
 	if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
 	if (file_put_contents ($udinra_image_sitemap_url, $udinra_xml)) {
@@ -188,6 +178,18 @@ if (empty ($udinra_posts)) {
 		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
 		}
 	}
+
+	if ($wp_udinra_gzip == true) {
+		$udinra_image_sitemap_url = $_SERVER["DOCUMENT_ROOT"] . '/sitemap-image.xml.gz';
+		if (IsImageSitemapWritable($_SERVER["DOCUMENT_ROOT"]) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+		$udinra_gz = gzopen($udinra_image_sitemap_url,'w9');
+		gzwrite($udinra_gz, $udinra_xml);
+		gzclose($udinra_gz);
+		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml.gz';
+		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
+		}
+	}
+
 			
 	if ($wp_udinra_ping_google == true) {
 		$udinra_ping_url ='';
