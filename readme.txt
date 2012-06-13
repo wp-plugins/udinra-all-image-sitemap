@@ -19,7 +19,8 @@ Does your website needs image sitemap at all is question in your mind then read
 You can find list of features and comparison with other image sitemaps at 
 <a href="http://udinra.com/blog/udinra-image-sitemap">Udinra Image Sitemap features</a>
 
-All information about the plugin will be updated on Wordpress as well as the link shared above.If you find any bugs then report it either on wordpress or on the link shared above.
+Please report bugs,feature request and other queries on this version of plugin at
+<a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support forum</a>
 
 
 == Installation ==
@@ -38,7 +39,12 @@ Not provided to keep plugin size small.You can visit <a href="http://udinra.com/
 
 == Changelog ==
 
-= 2.2 =
+= 2.4 =
+
+Fixed xsl issue.
+Code changes for pinging search engines
+
+= 2.3 =
 
 Minor code fix
 
