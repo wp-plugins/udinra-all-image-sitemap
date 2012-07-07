@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 2.4
+Version: 2.5
 Author URI: http://udinra.com
 */
 
@@ -51,29 +51,30 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 <p><input type="checkbox" id="udinra_ping_bing" name="udinra_ping_bing" value="udinra_ping_bing" <?php if($wp_udinra_ping_bing == true) { echo('checked="checked"'); } ?> />Ping Bing (Recommended)</p>
 <p><input type="checkbox" id="udinra_ping_ask" name="udinra_ping_ask" value="udinra_ping_ask" <?php if($wp_udinra_ping_ask == true) { echo('checked="checked"'); } ?> />Ping Ask.com (Recommended)</p>
 <p><em>If you have a minute, please <a href="http://wordpress.org/extend/plugins/udinra-all-image-sitemap/" target="_blank">rate this plugin</a> on WordPress.org... thanks!</em></p>
-<p><a 
-href="http://www.facebook.com/udinra"  title="Facebook Page"><b>Like our Facebook page</b></a></p>
 <p><input type="submit" name="udinra_img_site" value="Create Sitemap" /></p>
 <p><?php echo "Status:"."<br><br>".$udinra_sitemap_response; ?></p>
 </fieldset>
 </form>
 <p>You can report all bugs,feature requests and other queries related to this version of plugin at 
 <a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support Forum</a></p>
-<h3>Join Me on</h3>
-<p>
-<a 
-href="https://plus.google.com/116123732887797372587?rel=author"  title="Esha on Google plus"><b>Google Plus</b></a><br />
-<a 
-href="http://www.facebook.com/eshaaupadhyay"  title="Esha on Facebook"><b>Facebook</b></a><br />
-<a 
-href="https://twitter.com/Udinra"  title="Esha on Twitter"><b>Twitter</b></a><br />
-<a 
-href="https://digg.com/udinra"  title="Esha on Digg"><b>Digg</b></a>
-<br  />
-<a 
-href="https://stumbleupon.com/stumbler/udinra"  title="Esha on StumbleUpon"><b>StumbleUpon</b></a>
-</p>
-<p>Are You Making Money With Your Images then Donate Us a small share.
+<table><tr>
+<td>
+<!-- Place this tag where you want the badge to render. -->
+<div class="g-plus" data-height="69" data-href="//plus.google.com/116123732887797372587?rel=author"></div>
+
+<!-- Place this tag after the last badge tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</td><td><table><tr><td>
+<a href="https://twitter.com/Udinra" class="twitter-follow-button" data-show-count="false">Follow @Udinra</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</td></tr>
+<tr><td>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
  <input type="hidden" name="business" value="pitaji@udinra.com">  
  <input type="hidden" name="cmd" value="_donations">  
@@ -85,37 +86,32 @@ href="https://stumbleupon.com/stumbler/udinra"  title="Esha on StumbleUpon"><b>S
         alt="PayPal - The safer, easier way to pay online">  
  <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
 </form>
-</p>
-<p>
-<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'profile',
-  rpp: 5,
-  interval: 30000,
-  width: 250,
-  height: 300,
-  theme: {
-    shell: {
-      background: '#333333',
-      color: '#ffffff'
-    },
-    tweets: {
-      background: '#000000',
-      color: '#ffffff',
-      links: '#4aed05'
-    }
-  },
-  features: {
-    scrollbar: true,
-    loop: false,
-    live: true,
-    behavior: 'all'
-  }
-}).render().setUser('Udinra').start();
+</td></tr></table></td>
+</tr></table>
+<table width="100%"><tr>
+<td width="35%">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=238475612916304";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="http://www.reddit.com/domain/udinra.com/new/.embed?limit=5&t=all&sort=new&expanded=1" type="text/javascript"></script>
+</td>
+<td width="35%">
+<div id="digg-widget-1341663739269">
+<a href="http://digg.com/search?q=site:udinra.com">See more udinra.com stories on Digg.com</a>
+</div>
+<script type="text/javascript">
+(function() { var s, s1, diggWidget = {id: "digg-widget-1341663739269", layout: 1, colors: {hdrBg: "#1b5790", hdrTxt: "#b3daff", tabBg: "#4684be", tabTxt: "#b3daff", tabOnTxt: "#d41717", bdyBg: "#fff", stryBrdr: "#ddd", lnk: "#105cb6", descTxt: "#999999", subHd: "#999999"}, title: "udinra.com on Digg", width: 300, requests: [{t: "udinra.com", p: {count: "7", sort: "promote_date-desc", method: "story.getPopular", domain: "udinra.com", min_promote: "30"}}], hide: {}, nofallback: true}; if (window.DiggWidget) { if (typeof DiggWidget == 'function') { new DiggWidget(diggWidget); } else { DiggWidget.push(diggWidget); } } else { DiggWidget = [diggWidget]; s = document.createElement('SCRIPT'); s.type = 'text/javascript'; s.async = true; s.src = 'http://widgets.digg.com/widgets.js'; s1 = document.getElementsByTagName('SCRIPT')[0]; s1.parentNode.insertBefore(s, s1); } })();
 </script>
-</p>
+</td>
+<td width="30%">
+<div class="fb-like-box" data-href="http://www.facebook.com/udinra" data-width="292" data-show-faces="true" data-stream="false" data-header="true"></div>
+</td>
+</tr></table>
 </div>
 <?php
 
@@ -165,6 +161,7 @@ if (empty ($udinra_posts)) {
 	$udinra_cur_post_id= 0;
 	$udinra_prev_post_id= 0;		
 	$udinra_first_time = 0;
+
 
 	foreach ($udinra_posts as $udinra_post) { 
 		$udinra_cur_post_id= $udinra_post->post_parent;
@@ -221,7 +218,7 @@ if (empty ($udinra_posts)) {
 		if (is_wp_error($udinra_response)) {
 		}
 		else {
-		if($udinra_response['code']==200)
+		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Google Successfully"."<br>"; }
 			else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster.";}}}
 	if ($wp_udinra_ping_bing == true) {
@@ -231,7 +228,7 @@ if (empty ($udinra_posts)) {
 		if (is_wp_error($udinra_response)) {
 		}
 		else {
-		if($udinra_response['code']==200)
+		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Bing Successfully"."<br>"; }
 			else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster.";}}}
 	if ($wp_udinra_ping_ask == true) {
@@ -241,7 +238,7 @@ if (empty ($udinra_posts)) {
 		if (is_wp_error($udinra_response)) {
 		}
 		else {
-		if($udinra_response['code']==200)
+		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Ask.com Successfully"."<br>"; }
 			else { $udinra_sitemap_response .= "Failed to ping Ask.com."; }}}
 		}

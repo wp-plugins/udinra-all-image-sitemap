@@ -3,8 +3,8 @@ Contributors: Udinra
 Donate link: http://udinra.com/
 Tags: xml sitemaps, google sitemaps, image sitemap, seo, search engines, sitemap,google image sitemap,wordpress seo
 Requires at least: 2.1
-Tested up to: 3.4
-Stable tag: 2.4
+Tested up to: 3.4.1
+Stable tag: 2.5
 License: GPLv2 or later
 
 Automatically creates Google XML sitemap for images and pings Google,Bing and Ask.com
@@ -22,6 +22,10 @@ You can find list of features and comparison with other image sitemaps at
 Please report bugs,feature request and other queries on this version of plugin at
 <a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support forum</a>
 
+Other plugins from me
+
+<a href="http://udinra.com/blog/udinra-adsense-alternatives-plugin-for-wordpress">Udinra Adsense Alternatives</a>
+
 
 == Installation ==
 
@@ -38,6 +42,10 @@ http://udinra.com/blog/udinra-image-sitemap
 Not provided to keep plugin size small.You can visit <a href="http://udinra.com/blog/udinra-image-sitemap">this link</a> for details.
 
 == Changelog ==
+
+= 2.5 =
+
+Search engine ping issue resolved
 
 = 2.4 =
 
