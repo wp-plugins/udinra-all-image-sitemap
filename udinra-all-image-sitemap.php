@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 2.5
+Version: 2.7
 Author URI: http://udinra.com
 */
 
@@ -89,7 +89,7 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 </td></tr></table></td>
 </tr></table>
 <table width="100%"><tr>
-<td width="35%">
+<td width="50%">
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -98,17 +98,6 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=238475612916304";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<script src="http://www.reddit.com/domain/udinra.com/new/.embed?limit=5&t=all&sort=new&expanded=1" type="text/javascript"></script>
-</td>
-<td width="35%">
-<div id="digg-widget-1341663739269">
-<a href="http://digg.com/search?q=site:udinra.com">See more udinra.com stories on Digg.com</a>
-</div>
-<script type="text/javascript">
-(function() { var s, s1, diggWidget = {id: "digg-widget-1341663739269", layout: 1, colors: {hdrBg: "#1b5790", hdrTxt: "#b3daff", tabBg: "#4684be", tabTxt: "#b3daff", tabOnTxt: "#d41717", bdyBg: "#fff", stryBrdr: "#ddd", lnk: "#105cb6", descTxt: "#999999", subHd: "#999999"}, title: "udinra.com on Digg", width: 300, requests: [{t: "udinra.com", p: {count: "7", sort: "promote_date-desc", method: "story.getPopular", domain: "udinra.com", min_promote: "30"}}], hide: {}, nofallback: true}; if (window.DiggWidget) { if (typeof DiggWidget == 'function') { new DiggWidget(diggWidget); } else { DiggWidget.push(diggWidget); } } else { DiggWidget = [diggWidget]; s = document.createElement('SCRIPT'); s.type = 'text/javascript'; s.async = true; s.src = 'http://widgets.digg.com/widgets.js'; s1 = document.getElementsByTagName('SCRIPT')[0]; s1.parentNode.insertBefore(s, s1); } })();
-</script>
-</td>
-<td width="30%">
 <div class="fb-like-box" data-href="http://www.facebook.com/udinra" data-width="292" data-show-faces="true" data-stream="false" data-header="true"></div>
 </td>
 </tr></table>
@@ -172,9 +161,9 @@ if (empty ($udinra_posts)) {
 				$udinra_first_time = 0;
 			}
 			$udinra_xml .= "\t"."<url>"."\n";
-			$udinra_xml .= "\t\t"."<loc>".$udinra_post_url."</loc>"."\n";
+			$udinra_xml .= "\t\t"."<loc>".htmlspecialchars($udinra_post_url)."</loc>"."\n";
 			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
 			$udinra_xml .= "\t\t"."</image:image>"."\n";
@@ -183,7 +172,7 @@ if (empty ($udinra_posts)) {
 		}
 		else {
 			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".$udinra_post->guid."</image:loc>"."\n";
+			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
 			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
 			$udinra_xml .= "\t\t"."</image:image>"."\n";
@@ -193,7 +182,7 @@ if (empty ($udinra_posts)) {
 	$udinra_xml .= "</urlset>";
 
 	$udinra_image_sitemap_url = ABSPATH . '/sitemap-image.xml';
-	if (IsImageSitemapWritable(ABSPATH) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+	if (UdinraWritable(ABSPATH) || UdinraWritable($udinra_image_sitemap_url)) {
 	if (file_put_contents ($udinra_image_sitemap_url, $udinra_xml)) {
 		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml';
 		$udinra_sitemap_response = "Sitemap created successfully"."<br>";
@@ -202,7 +191,7 @@ if (empty ($udinra_posts)) {
 
 	if ($wp_udinra_gzip == true) {
 		$udinra_image_sitemap_url = ABSPATH . '/sitemap-image.xml.gz';
-		if (IsImageSitemapWritable(ABSPATH) || IsImageSitemapWritable($udinra_image_sitemap_url)) {
+		if (UdinraWritable(ABSPATH) || UdinraWritable($udinra_image_sitemap_url)) {
 		$udinra_gz = gzopen($udinra_image_sitemap_url,'w9');
 		gzwrite($udinra_gz, $udinra_xml);
 		gzclose($udinra_gz);
@@ -252,7 +241,7 @@ function udinra_image_sitemap_admin() {
 	}
 }
 
-function IsImageSitemapWritable($udinra_filename) {
+function UdinraWritable($udinra_filename) {
 	if(!is_writable($udinra_filename)) {
 		$udinra_sitemap_response = "The file sitemap-image.xml is not writable please check permission of the file for more details visit http://udinra.com/blog/udinra-image-sitemap";
 		return false;
