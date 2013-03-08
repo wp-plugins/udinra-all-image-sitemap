@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 2.8
+Version: 2.9
 Author URI: http://udinra.com
 */
 
@@ -135,30 +135,32 @@ if (empty ($udinra_posts)) {
 
 	foreach ($udinra_posts as $udinra_post) { 
 		$udinra_cur_post_id= $udinra_post->post_parent;
-		if($udinra_cur_post_id != $udinra_prev_post_id) {
-  			$udinra_post_url = get_permalink($udinra_cur_post_id);
-			if($udinra_first_time == 1) {
-				$udinra_xml .= "\t"."</url>"."\n"; 
-				$udinra_first_time = 0;
+		if($udinra_cur_post_id != 0) {
+			if($udinra_cur_post_id != $udinra_prev_post_id) {
+				$udinra_post_url = get_permalink($udinra_cur_post_id);
+				if($udinra_first_time == 1) {
+					$udinra_xml .= "\t"."</url>"."\n"; 
+					$udinra_first_time = 0;
+				}
+				$udinra_xml .= "\t"."<url>"."\n";
+				$udinra_xml .= "\t\t"."<loc>".htmlspecialchars($udinra_post_url)."</loc>"."\n";
+				$udinra_xml .= "\t\t"."<image:image>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
+				$udinra_xml .= "\t\t"."</image:image>"."\n";
+				$udinra_first_time = 1;
+				$udinra_prev_post_id = $udinra_cur_post_id;
 			}
-			$udinra_xml .= "\t"."<url>"."\n";
-			$udinra_xml .= "\t\t"."<loc>".htmlspecialchars($udinra_post_url)."</loc>"."\n";
-			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
-			$udinra_xml .= "\t\t"."</image:image>"."\n";
-			$udinra_first_time = 1;
-			$udinra_prev_post_id = $udinra_cur_post_id;
-		}
-		else {
-			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
-			$udinra_xml .= "\t\t"."</image:image>"."\n";
-		}
-	} 
+			else {
+				$udinra_xml .= "\t\t"."<image:image>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
+				$udinra_xml .= "\t\t"."</image:image>"."\n";
+			}
+		} 
+	}
 	$udinra_xml .= "\t"."</url>"."\n";
 	$udinra_xml .= "</urlset>";
 
