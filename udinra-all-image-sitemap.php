@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 2.7
+Version: 2.9
 Author URI: http://udinra.com
 */
 
@@ -57,23 +57,8 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 </form>
 <p>You can report all bugs,feature requests and other queries related to this version of plugin at 
 <a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support Forum</a></p>
-<table><tr>
-<td>
-<!-- Place this tag where you want the badge to render. -->
-<div class="g-plus" data-height="69" data-href="//plus.google.com/116123732887797372587?rel=author"></div>
-
-<!-- Place this tag after the last badge tag. -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-</td><td><table><tr><td>
-<a href="https://twitter.com/Udinra" class="twitter-follow-button" data-show-count="false">Follow @Udinra</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</td></tr>
+<p>Pro version of plugin is coming soon with Gallery plugin support and Enhanced SEO features.So stay tuned and give your images Google Love.</p>
+<table>
 <tr><td>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
  <input type="hidden" name="business" value="pitaji@udinra.com">  
@@ -86,10 +71,7 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
         alt="PayPal - The safer, easier way to pay online">  
  <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >  
 </form>
-</td></tr></table></td>
-</tr></table>
-<table width="100%"><tr>
-<td width="50%">
+</td><td>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -98,9 +80,8 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=238475612916304";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like-box" data-href="http://www.facebook.com/udinra" data-width="292" data-show-faces="true" data-stream="false" data-header="true"></div>
-</td>
-</tr></table>
+<div class="fb-like-box" data-href="http://www.facebook.com/udinra" data-width="300" data-show-faces="false" data-stream="false" data-header="false"></div>
+</td></tr></table>
 </div>
 <?php
 
@@ -154,30 +135,32 @@ if (empty ($udinra_posts)) {
 
 	foreach ($udinra_posts as $udinra_post) { 
 		$udinra_cur_post_id= $udinra_post->post_parent;
-		if($udinra_cur_post_id != $udinra_prev_post_id) {
-  			$udinra_post_url = get_permalink($udinra_cur_post_id);
-			if($udinra_first_time == 1) {
-				$udinra_xml .= "\t"."</url>"."\n"; 
-				$udinra_first_time = 0;
+		if($udinra_cur_post_id != 0) {
+			if($udinra_cur_post_id != $udinra_prev_post_id) {
+				$udinra_post_url = get_permalink($udinra_cur_post_id);
+				if($udinra_first_time == 1) {
+					$udinra_xml .= "\t"."</url>"."\n"; 
+					$udinra_first_time = 0;
+				}
+				$udinra_xml .= "\t"."<url>"."\n";
+				$udinra_xml .= "\t\t"."<loc>".htmlspecialchars($udinra_post_url)."</loc>"."\n";
+				$udinra_xml .= "\t\t"."<image:image>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
+				$udinra_xml .= "\t\t"."</image:image>"."\n";
+				$udinra_first_time = 1;
+				$udinra_prev_post_id = $udinra_cur_post_id;
 			}
-			$udinra_xml .= "\t"."<url>"."\n";
-			$udinra_xml .= "\t\t"."<loc>".htmlspecialchars($udinra_post_url)."</loc>"."\n";
-			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
-			$udinra_xml .= "\t\t"."</image:image>"."\n";
-			$udinra_first_time = 1;
-			$udinra_prev_post_id = $udinra_cur_post_id;
-		}
-		else {
-			$udinra_xml .= "\t\t"."<image:image>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
-			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
-			$udinra_xml .= "\t\t"."</image:image>"."\n";
-		}
-	} 
+			else {
+				$udinra_xml .= "\t\t"."<image:image>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:loc>".htmlspecialchars($udinra_post->guid)."</image:loc>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:caption>".htmlspecialchars($udinra_post->post_excerpt)."</image:caption>"."\n";
+				$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
+				$udinra_xml .= "\t\t"."</image:image>"."\n";
+			}
+		} 
+	}
 	$udinra_xml .= "\t"."</url>"."\n";
 	$udinra_xml .= "</urlset>";
 
@@ -209,7 +192,7 @@ if (empty ($udinra_posts)) {
 		else {
 		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Google Successfully"."<br>"; }
-			else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster.";}}}
+			else { $udinra_sitemap_response .= "Failed to ping Google.Please submit your image sitemap(sitemap-image.xml) at Google Webmaster."."<br>";}}}
 	if ($wp_udinra_ping_bing == true) {
 		$udinra_ping_url ='';
 		$udinra_ping_url = "http://www.bing.com/webmaster/ping.aspx?sitemap=" . urlencode($udinra_tempurl);
@@ -219,7 +202,7 @@ if (empty ($udinra_posts)) {
 		else {
 		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Bing Successfully"."<br>"; }
-			else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster.";}}}
+			else { $udinra_sitemap_response .= "Failed to ping Bing.Please submit your image sitemap(sitemap-image.xml) at Bing Webmaster."."<br>";}}}
 	if ($wp_udinra_ping_ask == true) {
 		$udinra_ping_url ='';
 		$udinra_ping_url = "http://submissions.ask.com/ping?sitemap=" . urlencode($udinra_tempurl);
@@ -229,9 +212,10 @@ if (empty ($udinra_posts)) {
 		else {
 		if($udinra_response['response']['code']==200)
 			{ $udinra_sitemap_response .= "Pinged Ask.com Successfully"."<br>"; }
-			else { $udinra_sitemap_response .= "Failed to ping Ask.com."; }}}
+			else { $udinra_sitemap_response .= "Failed to ping Ask.com."."<br>"; }}}
 		}
-
+		$udinra_tempurl = get_bloginfo('url'). '/sitemap-image.xml';
+		$udinra_sitemap_response .= '<a href='.$udinra_tempurl.' target="_blank" title="Image Sitemap URL">View Image Sitemap</a>'; 
 return $udinra_sitemap_response;
 }
 
