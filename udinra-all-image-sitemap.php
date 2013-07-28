@@ -144,6 +144,7 @@ if (empty ($udinra_posts)) {
 
 	foreach ($udinra_posts as $udinra_post) { 
 		$udinra_cur_post_id= $udinra_post->post_parent;
+		if(get_post_status($udinra_cur_post_id) == 'publish') {
 		if($udinra_cur_post_id != $udinra_prev_post_id) {
   			$udinra_post_url = get_permalink($udinra_cur_post_id);
 			if($udinra_first_time == 1) {
@@ -167,6 +168,7 @@ if (empty ($udinra_posts)) {
 			$udinra_xml .= "\t\t\t"."<image:title>".htmlspecialchars($udinra_post->post_title)."</image:title>"."\n";
 			$udinra_xml .= "\t\t"."</image:image>"."\n";
 		}
+	}
 	} 
 	$udinra_xml .= "\t"."</url>"."\n";
 	$udinra_xml .= "</urlset>";
