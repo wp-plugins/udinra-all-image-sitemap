@@ -3,8 +3,8 @@ Contributors: Udinra
 Donate link: http://udinra.com/
 Tags: xml sitemaps, google sitemaps, image sitemap, seo, search engines, sitemap,google image sitemap,wordpress seo
 Requires at least: 2.1
-Tested up to: 3.5.2
-Stable tag: 3.0
+Tested up to: 3.9.1
+Stable tag: 3.1
 License: GPLv2 or later
 
 Automatically creates Image sitemap and pings Google,Bing and Ask.com
@@ -16,20 +16,23 @@ Automatically creates Google XML sitemap for images and pings Google,Bing and As
 Does your website needs image sitemap at all is question in your mind then read 
 <a href="http://udinra.com/blog/does-your-site-need-image-sitemap">this article</a>
 
-You can find list of features and comparison with other image sitemaps at 
-<a href="http://udinra.com/blog/udinra-image-sitemap">Udinra Image Sitemap features</a>
-
-Please report bugs,feature request and other queries on this version of plugin at
-<a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support forum</a>
-
 You can check the difference this plugin makes to your image SEO by measuring your website performance in Google Image Search for details <a href="http://udinra.com/blog/how-to-measure-site-performance-in-different-google-property">read this post</a>
 
-Pro version of this plugin is coming soon.Pro version will be complete suite for Image SEO so stay tuned.
+<strong>Pro version Features</strong>
 
-Other plugins from me
+<ul><li>Supports WooCommerce plugin</li>
+<li>Support Gallery plugin by BestWebSoft</li>
+<li>Index Sitemap functionality</li>
+<li>Supports Large Website with limited resources</li>
+<li>Increased Google Search Visibility</li></ul>
+<br />
+You can buy Pro Version at <a href="http://udinra.com/blog/udinra-image-sitemap">Udinra Image Sitemap Pro version</a>
+<br />
 
-<a href="http://udinra.com/blog/udinra-adsense-alternatives-plugin-for-wordpress">Udinra Adsense Alternatives</a>
-<a href="http://udinra.com/blog/google-mobile-sitemap-plugin-for-wordpress">Udinra Mobile Sitemap</a>
+Other plugins from me<br />
+
+<ul><li><a href="http://udinra.com/blog/udinra-adsense-alternatives-plugin-for-wordpress">Udinra Adsense Alternatives</a></li>
+<li><a href="http://udinra.com/blog/google-mobile-sitemap-plugin-for-wordpress">Udinra Mobile Sitemap</a></li></ul>
 
 
 == Installation ==
