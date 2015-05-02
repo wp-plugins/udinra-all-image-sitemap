@@ -4,7 +4,7 @@ Plugin Name: Udinra All Image Sitemap
 Plugin URI: http://udinra.com/blog/udinra-image-sitemap
 Description: Automatically generates Google Image Sitemap and submits it to Google,Bing and Ask.com.
 Author: Udinra
-Version: 3.1
+Version: 3.2
 Author URI: http://udinra.com
 */
 
@@ -55,9 +55,14 @@ $udinra_sitemap_response = udinra_image_sitemap_loop();
 <p><?php echo "Status:"."<br><br>".$udinra_sitemap_response; ?></p>
 </fieldset>
 </form>
-<p>You can report all bugs,feature requests and other queries related to this version of plugin at 
-<a href="http://udinra.com/blog/udinra-all-image-sitemap-version-2-4-support-forum">Support Forum</a></p>
-<p>Pro version of plugin is coming soon with Gallery plugin support and Enhanced SEO features.So stay tuned and give your images Google Love.</p>
+<a href="https://udinra.com/blog/udinra-image-sitemap"><u><h3>Buy Udinra Image Sitemap Pro</h3></u></a>
+<ul><li>Supports WooCommerce plugin</li>
+<li>Supports Easy Digital Downloads plugin</li>
+<li>Generates ALT text</li>
+<li>Index Sitemap functionality</li>
+<li>Supports Large Website with limited resources</li>
+<li>Increased Google Search Visibility</li></ul>
+
 <table>
 <tr><td>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
